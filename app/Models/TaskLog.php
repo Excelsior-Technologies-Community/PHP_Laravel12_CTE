@@ -1,5 +1,4 @@
 <?php
-// app/Models/TaskLog.php
 
 namespace App\Models;
 
@@ -10,7 +9,11 @@ class TaskLog extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['task_id', 'action', 'details'];
+    protected $fillable = [
+        'task_id',
+        'action',
+        'details',
+    ];
 
     public function task()
     {

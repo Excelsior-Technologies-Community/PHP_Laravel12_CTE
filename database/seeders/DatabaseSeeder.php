@@ -1,5 +1,4 @@
 <?php
-// database/seeders/DatabaseSeeder.php
 
 namespace Database\Seeders;
 
@@ -12,21 +11,36 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        // Create users
+        /*
+         * Create 10 users.
+         */
         User::factory(10)->create();
 
-        // Create main tasks
-        Task::factory(20)->create();
-
-        // Create subtasks
-        Task::factory(30)->create([
-            'parent_task_id' => Task::inRandomOrder()->first()->id
+        /*
+         * Create 20 main/root tasks.
+         */
+        $mainTasks = Task::factory(20)->create([
+            'parent_task_id' => null,
         ]);
 
-        // Create task logs
+        /*
+         * Create 30 subtasks.
+         *
+         * Each subtask receives a random
+         * existing main task as its parent.
+         */
+        Task::factory(30)->create()->each(function ($task) use ($mainTasks) {
+            $task->update([
+                'parent_task_id' => $mainTasks->random()->id,
+            ]);
+        });
+
+        /*
+         * Create 3 logs for every task.
+         */
         Task::all()->each(function ($task) {
             TaskLog::factory(3)->create([
-                'task_id' => $task->id
+                'task_id' => $task->id,
             ]);
         });
     }
