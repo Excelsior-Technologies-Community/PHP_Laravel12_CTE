@@ -1,5 +1,4 @@
 <?php
-// database/factories/TaskLogFactory.php
 
 namespace Database\Factories;
 
@@ -12,7 +11,14 @@ class TaskLogFactory extends Factory
     {
         return [
             'task_id' => Task::factory(),
-            'action' => fake()->randomElement(['created', 'updated', 'status_changed', 'commented']),
+
+            'action' => fake()->randomElement([
+                'created',
+                'updated',
+                'status_changed',
+                'commented',
+            ]),
+
             'details' => fake()->sentence(),
         ];
     }

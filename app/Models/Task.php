@@ -1,5 +1,4 @@
 <?php
-// app/Models/Task.php
 
 namespace App\Models;
 
@@ -11,8 +10,13 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'user_id', 'parent_task_id', 
-        'status', 'priority', 'due_date'
+        'title',
+        'description',
+        'user_id',
+        'parent_task_id',
+        'status',
+        'priority',
+        'due_date',
     ];
 
     protected $casts = [
