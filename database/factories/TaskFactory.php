@@ -1,5 +1,4 @@
 <?php
-// database/factories/TaskFactory.php
 
 namespace Database\Factories;
 
@@ -13,11 +12,29 @@ class TaskFactory extends Factory
     {
         return [
             'title' => fake()->sentence(4),
+
             'description' => fake()->paragraph(),
+
             'user_id' => User::factory(),
-            'status' => fake()->randomElement(['pending', 'in_progress', 'completed']),
+
+            'parent_task_id' => null,
+
+            'status' => fake()->randomElement([
+                'pending',
+                'in_progress',
+                'completed',
+            ]),
+
             'priority' => fake()->numberBetween(1, 5),
-            'due_date' => fake()->dateTimeBetween('now', '+30 days'),
+
+            /*
+             * Generate both past and future due dates
+             * so overdue analysis has useful data.
+             */
+            'due_date' => fake()->dateTimeBetween(
+                '-30 days',
+                '+30 days'
+            ),
         ];
     }
 }

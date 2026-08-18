@@ -1,5 +1,4 @@
 <?php
-// database/factories/UserFactory.php
 
 namespace Database\Factories;
 
@@ -12,12 +11,26 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+
             'email' => fake()->unique()->safeEmail(),
+
             'email_verified_at' => now(),
+
             'password' => bcrypt('password'),
+
             'remember_token' => Str::random(10),
-            'department' => fake()->randomElement(['IT', 'HR', 'Sales', 'Marketing']),
-            'experience_years' => fake()->numberBetween(1, 15),
+
+            'department' => fake()->randomElement([
+                'IT',
+                'HR',
+                'Sales',
+                'Marketing',
+            ]),
+
+            'experience_years' => fake()->numberBetween(
+                1,
+                15
+            ),
         ];
     }
 }
