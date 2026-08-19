@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model
 {
-    use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'title',
@@ -20,7 +20,8 @@ class Task extends Model
     ];
 
     protected $casts = [
-        'due_date' => 'date',
+        'due_date' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
 
     public function user()
@@ -30,12 +31,18 @@ class Task extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Task::class, 'parent_task_id');
+        return $this->belongsTo(
+            Task::class,
+            'parent_task_id'
+        );
     }
 
     public function children()
     {
-        return $this->hasMany(Task::class, 'parent_task_id');
+        return $this->hasMany(
+            Task::class,
+            'parent_task_id'
+        );
     }
 
     public function logs()
